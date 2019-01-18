@@ -28,6 +28,7 @@
     NSString *_DGPSidValue;
     NSString *_latitudeValue;
     NSString *_longitudeValue;
+    NSString *_speedValue;
 }
 
 @synthesize elevation = _elevation;
@@ -51,7 +52,7 @@
 @synthesize extensions = _extensions;
 @synthesize latitude = _latitude;
 @synthesize longitude = _longitude;
-
+@synthesize speed = _speed;
 
 #pragma mark - Instance
 
@@ -60,6 +61,8 @@
     self = [super initWithXMLElement:element parent:parent];
     if (self) {
         _elevationValue = [self textForSingleChildElementNamed:@"ele" xmlElement:element];
+        _speedValue = [self textForSingleChildElementNamed:@"speed" xmlElement:element];
+        
         _timeValue = [self textForSingleChildElementNamed:@"time" xmlElement:element];
         _magneticVariationValue = [self textForSingleChildElementNamed:@"magvar" xmlElement:element];
         _geoidHeightValue = [self textForSingleChildElementNamed:@"geoidheight" xmlElement:element];
@@ -113,6 +116,16 @@
 - (void)setElevation:(CGFloat)elevation
 {
     _elevationValue = [GPXType valueForDecimal:elevation];
+}
+
+- (CGFloat)speed
+{
+    return [GPXType decimal:_speedValue];
+}
+
+- (void)setSpeed:(CGFloat)elevation
+{
+    _speedValue = [GPXType valueForDecimal:elevation];
 }
 
 - (NSDate *)time
@@ -303,6 +316,9 @@
     [super addChildTagToGpx:gpx indentationLevel:indentationLevel];
     
     [self gpx:gpx addPropertyForValue:_elevationValue tagName:@"ele" indentationLevel:indentationLevel];
+    
+    [self gpx: gpx addPropertyForValue:_speedValue tagName:@"speed" indentationLevel:indentationLevel];
+    
     [self gpx:gpx addPropertyForValue:_timeValue tagName:@"time" indentationLevel:indentationLevel];
     [self gpx:gpx addPropertyForValue:_magneticVariationValue tagName:@"magvar" indentationLevel:indentationLevel];
     [self gpx:gpx addPropertyForValue:_geoidHeightValue tagName:@"geoidheight" indentationLevel:indentationLevel];

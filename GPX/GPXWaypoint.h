@@ -92,6 +92,9 @@
 /** The longitude of the point. Decimal degrees, WGS84 datum. */
 @property (nonatomic, assign) CGFloat longitude;
 
+// 数据暂时不要进行 扩展
+@property (nonatomic, assign) CGFloat speed;
+
 
 /// ---------------------------------
 /// @name Create Waypoint
